@@ -3,7 +3,17 @@ import express from "express";
 import connectDB from "./db/conn.js";
 const app = express();
 dotenv.config();
-connectDB();
+
+(async () => {
+  try {
+    await connectDB();
+    app.listen(`${process.env.PORT}`, () => {
+      console.log(`App is listening at ${process.env.PORT}`);
+    });
+  } catch (error) {
+    console.log("Mongodb error :", error);
+  }
+})();
 
 /*
 (async () => {
